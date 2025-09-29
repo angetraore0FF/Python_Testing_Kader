@@ -41,14 +41,44 @@ def book(competition,club):
         return render_template('welcome.html', club=club, competitions=competitions)
 
 
-@app.route('/purchasePlaces',methods=['POST'])
+def saveClubs():
+    with open('clubs.json', 'w') as c:
+        json.dump({'clubs': clubs}, c)
+
+def saveCompetitions():
+    with open('competitions.json', 'w') as comps:
+        json.dump({'competitions': competitions}, comps)
+
+@app.route('/purchasePlaces', methods=['POST'])
 def purchasePlaces():
-    competition = [c for c in competitions if c['name'] == request.form['competition']][0]
-    club = [c for c in clubs if c['name'] == request.form['club']][0]
-    placesRequired = int(request.form['places'])
-    competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
-    flash('Great-booking complete!')
-    return render_template('welcome.html', club=club, competitions=competitions)
+    try:
+        competition = [c for c in competitions if c['name'] == request.form['competition']][0]
+        club = [c for c in clubs if c['name'] == request.form['club']][0]
+        placesRequired = int(request.form['places'])
+        
+        # Convertir en entiers pour les calculs
+        club_points = int(club['points'])
+        competition_places = int(competition['numberOfPlaces'])
+        
+        # Vérification basique pour les nombres positifs
+        if placesRequired <= 0:
+            flash('Please enter a positive number of places.')
+            return render_template('booking.html', club=club, competition=competition), 400
+        
+        # Mettre à jour les points du club et les places de la compétition
+        club['points'] = str(club_points - placesRequired)
+        competition['numberOfPlaces'] = str(competition_places - placesRequired)
+        
+        # Sauvegarder les modifications
+        saveClubs()
+        saveCompetitions()
+        
+        flash(f'Great-booking complete! {placesRequired} places booked.')
+        return render_template('welcome.html', club=club, competitions=competitions)
+    
+    except (IndexError, ValueError) as e:
+        flash("Something went wrong-please try again")
+        return render_template('welcome.html', club=club, competitions=competitions), 400
 
 
 # TODO: Add route for points display
