@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking History | GUDLFT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .back-button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .booking-table th,
+        .booking-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .booking-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .booking-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .booking-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .no-bookings {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 40px 0;
+        }
+        .club-header {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="club-header">
+        <h1>Booking History</h1>
+        {% if club_name %}
+        <h2>Club: {{ club_name }}</h2>
+        {% endif %}
+    </div>
+
+    <!-- Bouton de retour -->
+    <a href="javascript:history.back()" class="back-button">← Back to Competitions</a>
+
+    {% if bookings %}
+    <table class="booking-table">
+        <thead>
+            <tr>
+                <th>Competition</th>
+                <th>Places Booked</th>
+                <th>Booking Date & Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td><strong>{{ booking.competition }}</strong></td>
+                <td>{{ booking.places }} place(s)</td>
+                <td>{{ booking.timestamp }}</td>
+                <td>
+                    {% set comp_date = booking.competition_date if booking.competition_date else '2020-01-01 00:00:00' %}
+                    {% if comp_date|string < now|string %}
+                        <span style="color: #888;">Past Competition</span>
+                    {% else %}
+                        <span style="color: green;">Upcoming</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px;">
+        <strong>Total bookings: {{ bookings|length }}</strong><br>
+        <strong>Total places booked: {{ bookings|sum(attribute='places') }}</strong>
+    </div>
+
+    {% else %}
+    <div class="no-bookings">
+        <h3>No bookings found</h3>
+        <p>You haven't made any bookings yet.</p>
+        <p>Go to the competitions page to make your first booking!</p>
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 30px;">
+        <a href="{{ url_for('points_display') }}" class="back-button">View Club Points</a>
+        <a href="javascript:history.back()" class="back-button" style="background-color: #6c757d;">← Back</a>
+    </div>
+</body>
+</html>

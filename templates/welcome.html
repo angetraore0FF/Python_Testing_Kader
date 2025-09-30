@@ -39,6 +39,7 @@
     <div class="header-links">
         <a href="{{url_for('logout')}}">Logout</a> | 
         <a href="{{url_for('points_display')}}">View All Clubs Points</a>
+        <a href="{{ url_for('booking_history', club=club['name']) }}">My Booking History</a>
     </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
