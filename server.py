@@ -97,14 +97,6 @@ def purchasePlaces():
         saveClubs()
         saveCompetitions()
 
-        booking_record = {
-            'club': club['name'],
-            'competition': competition['name'],
-            'places': placesRequired,
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
-        bookings.append(booking_record)
-
         flash(f'Great - booking complete! {placesRequired} places booked for {competition["name"]}.', 'success')
         return render_template('welcome.html', club=club, competitions=competitions)
 
