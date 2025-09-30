@@ -106,6 +106,10 @@ def purchasePlaces():
 def inject_now():
     return {'now': datetime.now()}
 
+@app.route('/points')
+def points_display():
+    return render_template('points.html', clubs=clubs)
+
 # TODO: Add route for points display
 
 
