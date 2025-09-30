@@ -1,5 +1,6 @@
 import json
 from flask import Flask,render_template,request,redirect,flash,url_for
+from datetime import datetime
 
 
 def loadClubs():
@@ -27,7 +28,7 @@ def index():
 @app.route('/showSummary',methods=['POST'])
 def showSummary():
     club = [club for club in clubs if club['email'] == request.form['email']][0]
-    return render_template('welcome.html',club=club,competitions=competitions)
+    return render_template('welcome.html', club=club, competitions=competitions)
 
 
 @app.route('/book/<competition>/<club>')
@@ -80,6 +81,12 @@ def purchasePlaces():
             flash(f'Not enough places available! Only {competition_places} places left.')
             return render_template('booking.html', club=club, competition=competition), 400
         
+        # Vérification si la compétition est passée
+        competition_date = datetime.strptime(competition['date'], '%Y-%m-%d %H:%M:%S')
+        if competition_date < datetime.now():
+            flash('Cannot book places for past competitions.')
+            return render_template('booking.html', club=club, competition=competition), 400
+        
         # Mettre à jour les points du club et les places de la compétition
         club['points'] = str(club_points - placesRequired)
         competition['numberOfPlaces'] = str(competition_places - placesRequired)
@@ -95,6 +102,9 @@ def purchasePlaces():
         flash("Something went wrong-please try again")
         return render_template('welcome.html', club=club, competitions=competitions), 400
 
+@app.context_processor
+def inject_now():
+    return {'now': datetime.now()}
 
 # TODO: Add route for points display
 

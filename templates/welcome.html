@@ -3,34 +3,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
+    <style>
+        .flash-success {
+            color: green;
+            font-weight: bold;
+            background-color: #f0fff0;
+            padding: 10px;
+            border: 1px solid green;
+            border-radius: 5px;
+        }
+        .flash-error {
+            color: red;
+            font-weight: bold;
+            background-color: #fff0f0;
+            padding: 10px;
+            border: 1px solid red;
+            border-radius: 5px;
+        }
+        .past-competition {
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+    <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
 
-    {% with messages = get_flashed_messages()%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-    {% endif%}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul style="list-style-type: none; padding: 0;">
+            {% for category, message in messages %}
+                <li class="flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     Points available: {{club['points']}}
     <h3>Competitions:</h3>
     <ul>
         {% for comp in competitions%}
-        <li>
+        <li class="{% if comp['date']|string < now|string %}past-competition{% endif %}">
             {{comp['name']}}<br />
             Date: {{comp['date']}}</br>
             Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
+            {%if comp['numberOfPlaces']|int >0 and comp['date']|string > now|string%}
             <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
+            {%elif comp['date']|string < now|string%}
+            <span style="color: #888;">(Past competition)</span>
             {%endif%}
         </li>
         <hr />
         {% endfor %}
     </ul>
-    {%endwith%}
-
 </body>
 </html>
