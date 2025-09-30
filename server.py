@@ -83,7 +83,8 @@ def purchasePlaces():
         saveClubs()
         saveCompetitions()
         
-        
+        flash(f'Great-booking complete! {placesRequired} places booked for {competition["name"]}.', 'success')
+        return render_template('welcome.html', club=club, competitions=competitions)
     
     except (IndexError, ValueError) as e:
         flash("Something went wrong-please try again")
