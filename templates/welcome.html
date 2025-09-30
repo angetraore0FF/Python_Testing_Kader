@@ -1,73 +1,260 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .header-links {
+            margin: 20px 0 30px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .header-links a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .header-links a:hover {
+            background: #2a5298;
+            color: white;
+            border-color: #2a5298;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 20px 0 30px 0;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .points-badge strong {
+            font-size: 24px;
+            margin-left: 8px;
+        }
+
         .flash-success {
-            color: green;
-            font-weight: bold;
-            background-color: #f0fff0;
-            padding: 10px;
-            border: 1px solid green;
-            border-radius: 5px;
+            color: #155724;
+            font-weight: 500;
+            background-color: #d4edda;
+            padding: 15px 20px;
+            border: 2px solid #c3e6cb;
+            border-radius: 10px;
+            margin: 20px 0;
         }
+
         .flash-error {
-            color: red;
-            font-weight: bold;
-            background-color: #fff0f0;
-            padding: 10px;
-            border: 1px solid red;
-            border-radius: 5px;
+            color: #721c24;
+            font-weight: 500;
+            background-color: #f8d7da;
+            padding: 15px 20px;
+            border: 2px solid #f5c6cb;
+            border-radius: 10px;
+            margin: 20px 0;
         }
-        .past-competition {
+
+        ul.flash-messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2a5298;
+        }
+
+        ul.competitions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.competitions-list > li {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        ul.competitions-list > li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.competitions-list > li.past-competition {
+            background: #f0f0f0;
+            border-left-color: #888;
+            opacity: 0.7;
+        }
+
+        .competition-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .past-competition .competition-name {
             color: #888;
         }
-        .header-links {
-            margin: 10px 0;
+
+        .competition-details {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 8px 0;
         }
-        .header-links a {
-            margin-right: 15px;
+
+        .book-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            color: #007bff;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        .past-label {
+            color: #888;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        hr {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .header-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .points-badge {
+                font-size: 16px;
+            }
+
+            .points-badge strong {
+                font-size: 20px;
+            }
+
+            ul.competitions-list > li {
+                padding: 15px;
+            }
+
+            .competition-name {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-    <h2>Welcome, {{club['email']}} </h2>
-    
-    <div class="header-links">
-        <a href="{{url_for('logout')}}">Logout</a> | 
-        <a href="{{url_for('points_display')}}">View All Clubs Points</a>
-        <a href="{{ url_for('booking_history', club=club['name']) }}">My Booking History</a>
-    </div>
+    <div class="container">
+        <h2>Welcome, {{club['email']}} </h2>
+        
+        <div class="header-links">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <span>|</span>
+            <a href="{{url_for('points_display')}}">View All Clubs Points</a>
+            <span>|</span>
+            <a href="{{ url_for('booking_history', club=club['name']) }}">My Booking History</a>
+        </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul style="list-style-type: none; padding: 0;">
-            {% for category, message in messages %}
-                <li class="flash-{{ category }}">{{ message }}</li>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="points-badge">
+            Points available: <strong>{{club['points']}}</strong>
+        </div>
+
+        <h3>Competitions:</h3>
+        <ul class="competitions-list">
+            {% for comp in competitions%}
+            <li class="{% if comp['date']|string < now|string %}past-competition{% endif %}">
+                <div class="competition-name">{{comp['name']}}</div>
+                <div class="competition-details">
+                    <strong>Date:</strong> {{comp['date']}}<br>
+                    <strong>Number of Places:</strong> {{comp['numberOfPlaces']}}
+                </div>
+                {%if comp['numberOfPlaces']|int >0 and comp['date']|string > now|string%}
+                    <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}" class="book-button">Book Places</a>
+                {%elif comp['date']|string < now|string%}
+                    <span class="past-label">(Past competition)</span>
+                {%endif%}
+            </li>
             {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
-    Points available: <strong>{{club['points']}}</strong>
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li class="{% if comp['date']|string < now|string %}past-competition{% endif %}">
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0 and comp['date']|string > now|string%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%elif comp['date']|string < now|string%}
-            <span style="color: #888;">(Past competition)</span>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
+        </ul>
+    </div>
 </body>
 </html>
