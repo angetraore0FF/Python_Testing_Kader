@@ -65,6 +65,11 @@ def purchasePlaces():
             flash('Please enter a positive number of places.')
             return render_template('booking.html', club=club, competition=competition), 400
         
+        # Vérification du maximum de 12 places
+        if placesRequired > 12:
+            flash('You cannot book more than 12 places in one booking.')
+            return render_template('booking.html', club=club, competition=competition), 400
+        
         # Vérification des points du club
         if placesRequired > club_points:
             flash(f'Not enough points! You have {club_points} points but want to book {placesRequired} places.')
