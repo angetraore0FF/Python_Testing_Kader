@@ -23,12 +23,23 @@
         .past-competition {
             color: #888;
         }
+        .header-links {
+            margin: 10px 0;
+        }
+        .header-links a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
     <h2>Welcome, {{club['email']}} </h2>
-    <a href="{{url_for('logout')}}">Logout</a>
-    <a href="{{url_for('points_display')}}">View All Clubs Points</a>
+    
+    <div class="header-links">
+        <a href="{{url_for('logout')}}">Logout</a> | 
+        <a href="{{url_for('points_display')}}">View All Clubs Points</a>
+    </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -40,7 +51,7 @@
         {% endif %}
     {% endwith %}
 
-    Points available: {{club['points']}}
+    Points available: <strong>{{club['points']}}</strong>
     <h3>Competitions:</h3>
     <ul>
         {% for comp in competitions%}
