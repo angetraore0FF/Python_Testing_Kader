@@ -1,125 +1,287 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking History | GUDLFT</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
         }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .club-header {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4e9f7 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2a5298;
+        }
+
         h1 {
-            color: #333;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            color: #1e3c72;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
+
+        h2 {
+            color: #2a5298;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
         .back-button {
             display: inline-block;
-            margin: 20px 0;
-            padding: 10px 15px;
-            background-color: #007bff;
+            margin: 0 10px 20px 0;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 15px;
         }
+
         .back-button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
         }
+
+        .back-button.secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        }
+
+        .back-button.secondary:hover {
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
         .booking-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        .booking-table th,
-        .booking-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
+
+        .booking-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         }
+
         .booking-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
         }
-        .booking-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        .booking-table td {
+            padding: 14px 16px;
+            text-align: left;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
         }
-        .booking-table tr:hover {
-            background-color: #f5f5f5;
+
+        .booking-table tbody tr {
+            background-color: white;
+            transition: all 0.2s ease;
         }
+
+        .booking-table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .booking-table tbody tr:hover {
+            background-color: #e8f4fd;
+            transform: scale(1.01);
+        }
+
+        .booking-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-upcoming {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-past {
+            color: #888;
+            font-style: italic;
+        }
+
         .no-bookings {
             text-align: center;
-            color: #666;
-            font-style: italic;
+            padding: 60px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
             margin: 40px 0;
         }
-        .club-header {
-            background-color: #e8f4fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+
+        .no-bookings h3 {
+            color: #1e3c72;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .no-bookings p {
+            color: #666;
+            font-size: 16px;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4e9f7 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 5px solid #2a5298;
+        }
+
+        .summary-box strong {
+            color: #1e3c72;
+            font-size: 16px;
+            display: block;
+            margin: 8px 0;
+        }
+
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            .booking-table {
+                font-size: 14px;
+            }
+
+            .booking-table th,
+            .booking-table td {
+                padding: 10px 8px;
+            }
+
+            .back-button {
+                font-size: 14px;
+                padding: 10px 18px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .back-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .booking-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="club-header">
-        <h1>Booking History</h1>
-        {% if club_name %}
-        <h2>Club: {{ club_name }}</h2>
+    <div class="container">
+        <div class="club-header">
+            <h1>Booking History</h1>
+            {% if club_name %}
+            <h2>Club: {{ club_name }}</h2>
+            {% endif %}
+        </div>
+
+        <!-- Bouton de retour -->
+        <a href="javascript:history.back()" class="back-button">← Back to Competitions</a>
+
+        {% if bookings %}
+        <table class="booking-table">
+            <thead>
+                <tr>
+                    <th>Competition</th>
+                    <th>Places Booked</th>
+                    <th>Booking Date & Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td><strong>{{ booking.competition }}</strong></td>
+                    <td>{{ booking.places }} place(s)</td>
+                    <td>{{ booking.timestamp }}</td>
+                    <td>
+                        {% set comp_date = booking.competition_date if booking.competition_date else '2020-01-01 00:00:00' %}
+                        {% if comp_date|string < now|string %}
+                            <span class="status-past">Past Competition</span>
+                        {% else %}
+                            <span class="status-upcoming">Upcoming</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="summary-box">
+            <strong>Total bookings: {{ bookings|length }}</strong>
+            <strong>Total places booked: {{ bookings|sum(attribute='places') }}</strong>
+        </div>
+
+        {% else %}
+        <div class="no-bookings">
+            <h3>No bookings found</h3>
+            <p>You haven't made any bookings yet.</p>
+            <p>Go to the competitions page to make your first booking!</p>
+        </div>
         {% endif %}
-    </div>
 
-    <!-- Bouton de retour -->
-    <a href="javascript:history.back()" class="back-button">← Back to Competitions</a>
-
-    {% if bookings %}
-    <table class="booking-table">
-        <thead>
-            <tr>
-                <th>Competition</th>
-                <th>Places Booked</th>
-                <th>Booking Date & Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for booking in bookings %}
-            <tr>
-                <td><strong>{{ booking.competition }}</strong></td>
-                <td>{{ booking.places }} place(s)</td>
-                <td>{{ booking.timestamp }}</td>
-                <td>
-                    {% set comp_date = booking.competition_date if booking.competition_date else '2020-01-01 00:00:00' %}
-                    {% if comp_date|string < now|string %}
-                        <span style="color: #888;">Past Competition</span>
-                    {% else %}
-                        <span style="color: green;">Upcoming</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <div style="margin-top: 20px;">
-        <strong>Total bookings: {{ bookings|length }}</strong><br>
-        <strong>Total places booked: {{ bookings|sum(attribute='places') }}</strong>
-    </div>
-
-    {% else %}
-    <div class="no-bookings">
-        <h3>No bookings found</h3>
-        <p>You haven't made any bookings yet.</p>
-        <p>Go to the competitions page to make your first booking!</p>
-    </div>
-    {% endif %}
-
-    <div style="margin-top: 30px;">
-        <a href="{{ url_for('points_display') }}" class="back-button">View Club Points</a>
-        <a href="javascript:history.back()" class="back-button" style="background-color: #6c757d;">← Back</a>
+        <div class="button-group">
+            <a href="{{ url_for('points_display') }}" class="back-button">View Club Points</a>
+            <a href="javascript:history.back()" class="back-button secondary">← Back</a>
+        </div>
     </div>
 </body>
 </html>
