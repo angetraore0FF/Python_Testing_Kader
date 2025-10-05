@@ -63,7 +63,8 @@
             margin-bottom: 8px;
         }
 
-        input[type="email"] {
+        input[type="email"],
+        input[type="password"] {
             width: 100%;
             padding: 14px 16px;
             border: 2px solid #e0e0e0;
@@ -73,7 +74,8 @@
             outline: none;
         }
 
-        input[type="email"]:focus {
+        input[type="email"]:focus,
+        input[type="password"]:focus {
             border-color: #2a5298;
             box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
         }
@@ -118,13 +120,17 @@
 <body>
     <div class="container">
         <h1>Welcome to the GUDLFT Registration Portal!</h1>
-        <p class="subtitle">Please enter your secretary email to continue:</p>
+        <p class="subtitle">Please enter your secretary email and password to continue:</p>
         <form action="showSummary" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" placeholder="secretary@example.com" required/>
             </div>
-            <button type="submit">Enter</button>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required/>
+            </div>
+            <button type="submit">Login</button>
         </form>
     </div>
 </body>

@@ -24,11 +24,21 @@ def index():
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
+    email = request.form['email']
+    password = request.form['password']
+    
     try:
-        club = [club for club in clubs if club['email'] == request.form['email']][0]
+        club = [club for club in clubs if club['email'] == email][0]
+        
+        # Vérification simple du mot de passe
+        if club.get('password') != password:
+            flash("Invalid email or password")
+            return redirect(url_for('index'))
+            
     except IndexError:
         flash("Club not found with this email")
         return redirect(url_for('index'))
+    
     return render_template('welcome.html', club=club, competitions=competitions)
 
 @app.route('/book/<competition>/<club>')
@@ -90,7 +100,7 @@ def purchasePlaces():
             'competition': competition['name'],
             'places': placesRequired,
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'competition_date': competition['date']  # Pour afficher le statut
+            'competition_date': competition['date']
         }
         bookings.append(booking_record)
 
@@ -115,7 +125,6 @@ def booking_history():
         flash('Club not specified.')
         return redirect(url_for('index'))
     
-    # Filtrer les réservations par club
     club_bookings = [b for b in bookings if b['club'] == club_name]
     
     return render_template('booking_history.html', 
