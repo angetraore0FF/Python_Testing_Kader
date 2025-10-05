@@ -3,136 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/points.css">
     <title>Club Points | GUDLFT</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-        }
-
-        h1 {
-            color: #1e3c72;
-            font-size: 32px;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .back-button {
-            display: inline-block;
-            color: #2a5298;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 10px 20px;
-            border: 2px solid #2a5298;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: #2a5298;
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 20px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        thead {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        }
-
-        th {
-            color: white;
-            padding: 16px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 14px 16px;
-            text-align: left;
-            color: #333;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        tbody tr {
-            transition: all 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background-color: #f8f9fa;
-            transform: scale(1.01);
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        td:last-child {
-            font-weight: 600;
-            color: #2a5298;
-            font-size: 16px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 10px 8px;
-            }
-
-            .back-button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -158,5 +30,6 @@
             </tbody>
         </table>
     </div>
+    <link rel="stylesheet" href="../static/js/main.js">
 </body>
 </html>
