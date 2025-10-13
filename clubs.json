@@ -9,19 +9,19 @@
         {
             "name": "Iron Temple",
             "email": "admin@irontemple.com",
-            "points": "20",
+            "points": "30",
             "password": "12345"
         },
         {
             "name": "She Lifts",
             "email": "kate@shelifts.co.uk",
-            "points": "20",
+            "points": "1",
             "password": "12345"
         },
         {
-            "name": "Traor\u00c3\u00a9",
+            "name": "Traore",
             "email": "ange@gmail.com",
-            "points": "2",
+            "points": "20",
             "password": "12345"
         }
     ]
