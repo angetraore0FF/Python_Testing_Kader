@@ -10,6 +10,18 @@
     <div class="container">
         <h1>Welcome to the GUDLFT Registration Portal!</h1>
         <p class="subtitle">Please enter your secretary email and password to continue:</p>
+        
+        <!-- AJOUTEZ CETTE SECTION POUR LES MESSAGES FLASH -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
         <form action="showSummary" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>

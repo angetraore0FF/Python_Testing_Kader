@@ -1,0 +1,6 @@
+[
+  "tests/test_connexion.py::TestConnexion::test_connexion_iron_temple",
+  "tests/test_connexion.py::TestConnexion::test_connexion_mauvais_mot_de_passe",
+  "tests/test_connexion.py::TestConnexion::test_connexion_simply_lift",
+  "tests/test_connexion.py::test_connexion_mauvais_mot_de_passe"
+]

@@ -1,0 +1,3 @@
+{
+  "tests/test_connexion.py::test_connexion_mauvais_mot_de_passe": true
+}
