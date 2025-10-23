@@ -1,3 +1,8 @@
 {
-  "tests/test_connexion.py::test_connexion_mauvais_mot_de_passe": true
+  "tests/test_connexion.py::test_connexion_mauvais_mot_de_passe": true,
+  "tests/test_booking.py::TestBooking::test_reservation_places_valides": true,
+  "tests/test_booking.py::TestBooking::test_reservation_places_insuffisantes": true,
+  "tests/test_points.py::TestPoints::test_mise_a_jour_points_apres_reservation": true,
+  "tests/test_integration.py::TestIntegration::test_parcours_complet_reservation": true,
+  "tests/test_security.py::TestSecurity::test_acces_sans_connexion": true
 }
